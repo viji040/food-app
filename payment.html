@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Payment</title>
+
+<style>
+  body {
+    background: linear-gradient(135deg, #1f1f1f, #000);
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    color: #ffd369;
+  }
+
+  .container {
+    max-width: 700px;
+    margin: auto;
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+    background: rgba(255,255,255,0.08);
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+  }
+
+  .item img {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    margin-right: 15px;
+    object-fit: cover;
+  }
+
+  .item h3 {
+    margin: 0;
+  }
+
+  .price {
+    margin-left: auto;
+    color: #ffd369;
+    font-weight: bold;
+  }
+
+  .total {
+    text-align: right;
+    font-size: 20px;
+    margin-top: 20px;
+    color: #ffd369;
+  }
+
+  button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(45deg, #ffd369, #ffb347);
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #ffd369;
+  }
+
+  .empty {
+    text-align: center;
+    color: #aaa;
+    margin-top: 50px;
+  }
+</style>
+
+</head>
+<body>
+
+<h1>💳 Payment</h1>
+
+<div class="container">
+  <div id="items"></div>
+  <div class="total" id="total"></div>
+
+  <button onclick="pay()">Pay Now</button>
+</div>
+
+<script>
+
+const user = localStorage.getItem("currentUser");
+
+if (!user) {
+  alert("Login first 😒");
+  window.location.href = "login.html";
+}
+
+let cart = JSON.parse(localStorage.getItem("selectedCart")) || [];
+
+const itemsDiv = document.getElementById("items");
+const totalEl = document.getElementById("total");
+
+let total = 0;
+
+if (cart.length === 0) {
+  itemsDiv.innerHTML = "<p class='empty'>Your cart is empty 😒</p>";
+} else {
+  cart.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "item";
+
+    div.innerHTML = `
+      <img src="${item.image}">
+      <h3>${item.name}</h3>
+      <span class="price">₹${item.price}</span>
+    `;
+
+    itemsDiv.appendChild(div);
+    total += item.price;
+  });
+}
+
+totalEl.textContent = "Total: ₹" + total;
+
+function pay() {
+  if (cart.length === 0) {
+    alert("Cart is empty 😒");
+    return;
+  }
+
+  alert("✅ Payment Successful 🎉\nTotal Paid: ₹" + total);
+
+  localStorage.removeItem("selectedCart");
+
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

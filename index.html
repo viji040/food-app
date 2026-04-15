@@ -1,0 +1,71 @@
+<!-- 13/3/26 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🍔 Food Corner</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+ 
+    <header class="topbar">
+  <h1>🍔 Food Corner</h1>
+
+  <input type="text" id="searchBox" placeholder="Search food...🔍">
+
+  <!-- SIDE MENU BUTTON -->
+  <div class="menu-icon" onclick="toggleMenu()">☰</div>
+
+  <div id="profile"></div>
+
+  <button onclick="logout()">Logout</button>
+</header>
+
+<div id="sideMenu" class="side-menu">
+
+  <!-- CLOSE BUTTON -->
+  <span class="close-btn" onclick="closeMenu()">✖</span>
+
+  <a href="#" onclick="goToCart()">🛒 Cart</a>
+<a href="login.html">🔐 Login</a>
+<a href="#" onclick="goToCart()">💳 Order</a>
+<a href="#" onclick="logout()">🚪 Logout</a>
+
+</div>
+
+<!-- OVERLAY (for background click) -->
+<div id="overlay" onclick="closeMenu()"></div>
+
+<!-- FILTER BUTTONS -->
+<div class="filters">
+  <button onclick="showAll()">🍽 All</button>
+  <button onclick="showVeg()">🥦 Veg</button>
+  <button onclick="showNonVeg()">🍗 Non-Veg</button>
+</div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <div class="hero">
+    <h2>🍽️ Delicious Food Menu</h2>
+    <p>• Fresh • Tasty • Affordable</p>
+  </div>
+
+  <!-- MAIN CONTAINER -->
+  <div class="container">
+
+    <!-- LEFT SIDE (FOOD LIST) -->
+    <div id="food-list"></div>
+
+    <!-- RIGHT SIDE -->
+    <div class="right-side">
+      <h3>✨ Eat & Feel</h3>
+      <p>"Good food = Good mood 😋"</p>
+    </div>
+
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

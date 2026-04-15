@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Signup</title>
+<style>
+body {
+  background: #111;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: sans-serif;
+}
+.box {
+  background: #222;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+}
+input {
+  margin: 10px;
+  padding: 10px;
+  width: 200px;
+}
+button {
+  padding: 10px;
+  background: #ffd369;
+  border: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2>Create Account</h2>
+  <input id="user" placeholder="Username"><br>
+  <input id="pass" type="password" placeholder="Password"><br>
+  <button onclick="signup()">Signup</button>
+</div>
+
+<script>
+
+async function signup() {
+  const username = document.getElementById("user").value.trim();
+  const password = document.getElementById("pass").value.trim();
+
+  if (!username || !password) {
+    alert("Fill all fields 😒");
+    return;
+  }
+
+  try {
+    const res = await fetch("http://localhost:5000/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ username, password })
+    });
+
+    await res.json();
+
+    alert("Account created 😏");
+    window.location.href = "login.html";
+
+  } catch (err) {
+    console.log(err);
+    alert("Server error 😭");
+  }
+}
+
+</script>
+</body>
+</html>

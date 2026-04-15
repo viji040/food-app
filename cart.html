@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cart</title>
+  <style>
+    body {
+      background: #111;
+      color: white;
+      font-family: sans-serif;
+      padding: 20px;
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      background: #222;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .item img {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      margin-right: 10px;
+    }
+
+    button {
+      margin-left: auto;
+      background: red;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>🛒 Your Cart</h1>
+
+<div id="cart-items"></div>
+<h2 id="total"></h2>
+
+ <button onclick="goToPayment()">Proceed to Payment</button>
+<script>
+const cartDiv = document.getElementById("cart-items");
+const totalEl = document.getElementById("total");
+
+const currentUser = localStorage.getItem("currentUser");
+
+if (!currentUser) {
+  alert("Login first 😒");
+  window.location.href = "login.html";
+}
+
+let cart = JSON.parse(localStorage.getItem(currentUser + "_cart")) || [];
+let selectedItems = [];
+
+// 🛒 DISPLAY CART
+cart.forEach((item, index) => {
+  const div = document.createElement("div");
+  div.className = "item";
+
+  div.innerHTML = `
+    <input type="checkbox" onchange="toggleSelect(${index}, this)">
+    <img src="${item.image}">
+    <p>${item.name} - ₹${item.price}</p>
+    <button onclick="removeItem(${index})">❌</button>
+  `;
+
+  cartDiv.appendChild(div);
+});
+
+// ❌ REMOVE ITEM
+function removeItem(index) {
+  cart.splice(index, 1);
+  localStorage.setItem(currentUser + "_cart", JSON.stringify(cart));
+  location.reload();
+}
+
+// ✅ SELECT ITEMS
+function toggleSelect(index, checkbox) {
+  if (checkbox.checked) {
+    selectedItems.push(cart[index]);
+  } else {
+    selectedItems = selectedItems.filter(item => item !== cart[index]);
+  }
+
+  updateTotal();
+}
+
+// 💰 UPDATE TOTAL (ONLY SELECTED)
+function updateTotal() {
+  let total = 0;
+
+  selectedItems.forEach(item => {
+    total += item.price;
+  });
+
+  totalEl.textContent = "Total: ₹" + total;
+}
+
+// 🚀 GO TO PAYMENT (ONLY SELECTED)
+function goToPayment() {
+  if (selectedItems.length === 0) {
+    alert("Select items first 😒");
+    return;
+  }
+
+  localStorage.setItem("selectedCart", JSON.stringify(selectedItems));
+
+  window.location.href = "payment.html";
+}
+
+</script>
+</body>
+</html>
