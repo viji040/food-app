@@ -56,7 +56,7 @@ let cart = JSON.parse(localStorage.getItem(currentUser + "_cart")) || [];
 async function loadFoods() {
   try {
     // const res = await fetch("http://localhost:5000/foods");
-    const res= await fetch("https://food-app-7r0i.onrender.com")
+    const res= await fetch("https://food-app-7r0i.onrender.com/foods")
     const data = await res.json();
 
     console.log("Foods from DB:", data);
