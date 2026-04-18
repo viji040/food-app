@@ -104,7 +104,9 @@ function displayFoods(foods) {
     const div = document.createElement("div");
     div.className = "card";
 
-    const image = food.image;
+    // const image = food.image;
+
+    const image = "https://food-app-7r0i.onrender.com" + food.image;
 
     div.innerHTML = `
       
