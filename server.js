@@ -78,14 +78,47 @@ app.listen(PORT, () => {
 const User = require("./models/User");
 
 // REGISTER
+// app.post("/register", async (req, res) => {
+//   const { username, password } = req.body;
+
+//   const user = new User({ username, password });
+//   await user.save();
+
+//   res.json("User registered");
+// });
+
 app.post("/register", async (req, res) => {
-  const { username, password } = req.body;
+  try {
+    const { username, password } = req.body;
 
-  const user = new User({ username, password });
-  await user.save();
+    // check existing user
+    const existingUser = await User.findOne({ username });
 
-  res.json("User registered");
+    if (existingUser) {
+      return res.json({
+        success: false,
+        message: "Username already exists 😒"
+      });
+    }
+
+    const user = new User({ username, password });
+    await user.save();
+
+    res.json({
+      success: true,
+      message: "User registered successfully 😎"
+    });
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      success: false,
+      message: "Server error 😭"
+    });
+  }
 });
+
+
 
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;

@@ -52,7 +52,7 @@ async function signup() {
   }
 
   try {
-    // const res = await fetch("http://localhost:5000/register", {
+   
  const res = await fetch("https://food-app-7r0i.onrender.com/register", {
 
       method: "POST",
@@ -62,10 +62,19 @@ async function signup() {
       body: JSON.stringify({ username, password })
     });
 
-    await res.json();
+    // await res.json();
 
-    alert("Account created 😏");
-    window.location.href = "login.html";
+    // alert("Account created 😏");
+    // window.location.href = "login.html";
+
+    const data = await res.json();
+
+if (data.success) {
+  alert("Account created 😏");
+  window.location.href = "login.html";
+} else {
+  alert(data.message);
+}
 
   } catch (err) {
     console.log(err);
