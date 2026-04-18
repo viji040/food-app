@@ -18,40 +18,7 @@ let selectedItems = [];
 
 let cart = JSON.parse(localStorage.getItem(currentUser + "_cart")) || [];
 
-// function getImage(food) {
-//   const text = (food.name + " " + food.category).toLowerCase();
 
-//   // 👇 SPECIFIC FIRST
-//   if (text.includes("chicken pizza")) return "/images/chickenpizza.jpg";
-//   if (text.includes("grill")) return "/images/grill.jpg";
-//   if (text.includes("samosa")) return "/images/samosa.jpg";
-//   if (text.includes("fries")) return "/images/fries.jpg";
-//   if (text.includes("fruits")) return "/images/fruits.jpg";
-//   // if (text.includes("drinks")) return "/images/drinks.jpg";
-//   if (text.includes("juice") || text.includes("drink"))
-//   return "/images/fruits.jpg";
-//   if (text.includes("biriyani") || text.includes("vegbiriyani"))
-//   return "/images/vegbiriyani.jpg";
-
-//   // 👇 GENERAL LAST
-//   if (text.includes("pizza")) return "/images/pizza.jpg";
-//   if (text.includes("burger")) return "/images/burger.jpg";
-//   if (text.includes("biriyani")) return "/images/biriyani.jpg";
-
-//   return "images/biriyani.jpg";
-// }
-// 🚀 FETCH
-// let allFoods = [
-//   { name: "Chicken Biryani", price: 180, veg: false, category: "main" },
-//   { name: "Veg Pizza", price: 120, veg: true, category: "main" },
-//   { name: "Paneer Burger", price: 90, veg: true, category: "snack" },
-//   { name: "Chicken Pizza", price: 150, veg: false, category: "main" },
-//   { name: "French Fries", price: 60, veg: true, category: "snack" },
-//   { name: "Samosa", price: 20, veg: true, category: "snack" },
-//   { name: "Grill Chicken", price: 200, veg: false, category: "main" },
-//    { name: "fruit juice", price: 80, veg: true, category: "snack" },
-//    { name: "veg biriyani", price: 100, veg: true, category: "main" }
-// ];
 
 async function loadFoods() {
   try {
