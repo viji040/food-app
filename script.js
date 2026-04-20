@@ -18,7 +18,7 @@ let selectedItems = [];
 
 async function loadFoods() {
   try {
-    // const res = await fetch("http://localhost:5000/foods");
+
     const res= await fetch("https://food-app-7r0i.onrender.com/foods")
     const data = await res.json();
 
@@ -137,48 +137,8 @@ function showToast() {
 
 
 // 🛒 UPDATE CART
-// function updateCart() {
-//   const cartItems = document.getElementById("cart-items");
-//   const totalEl = document.getElementById("total");
-
-//   cartItems.innerHTML = "";
-//   let total = 0;
-
-//   cart.forEach((item, index) => {
-//     const li = document.createElement("li");
-
-//     li.innerHTML = `
-//       ${item.name} - ₹${item.price}
-//       <button onclick="removeItem(${index})">❌</button>
-//     `;
-
-//     cartItems.appendChild(li);
-//     total += item.price;
-//   });
-
-//   totalEl.textContent = "Total: ₹" + total;
-// }
-
-// function placeOrder() {
-//   if (cart.length === 0) {
-//     alert("Cart empty 😒");
-//     return;
-//   }
-
-//   alert("Order placed successfully 🎉");
-
-//   cart = [];
- 
-  
-// localStorage.removeItem(currentUser + "_cart");
-//   updateCart();
-// }
-
-
 
 // 🚀 START
-// getFoods();
-
 
 function toggleMenu() {
   document.getElementById("sideMenu").classList.add("active");
@@ -218,10 +178,6 @@ const user = localStorage.getItem("currentUser");
 
   window.location.href = "cart.html";
 }
-
-// if (document.getElementById("cart-items")) {
-//   updateCart();
-// }
 
 function toggleSelect(index) {
   if (selectedItems.includes(index)) {
