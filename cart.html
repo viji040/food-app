@@ -76,7 +76,7 @@ const totalEl = document.getElementById("total");
 const currentUser = localStorage.getItem("currentUser");
 
 if (!currentUser) {
-  alert("Login first 😒");
+  alert("Login first ");
   window.location.href = "login.html";
 }
 
@@ -95,7 +95,7 @@ async function loadCart() {
 
   } catch (err) {
     console.log(err);
-    alert("Error loading cart 😭");
+    alert("Error loading cart ");
   }
 }
 
@@ -103,7 +103,7 @@ function displayCart() {
   cartDiv.innerHTML = "";
 
   if (cart.length === 0) {
-    cartDiv.innerHTML = "<p>Your cart is empty 😒</p>";
+    cartDiv.innerHTML = "<p>Your cart is empty </p>";
     return;
   }
 
@@ -147,7 +147,7 @@ async function removeItem(id) {
 
   } catch (err) {
     console.log(err);
-    alert("Delete failed 😭");
+    alert("Delete failed ");
   }
 }
 
@@ -198,7 +198,7 @@ function updateTotal() {
 // 🚀 GO TO PAYMENT (ONLY SELECTED)
 function goToPayment() {
   if (selectedItems.length === 0) {
-    alert("Select items first 😒");
+    alert("Select items first ");
     return;
   }
 

@@ -100,7 +100,7 @@
 const user = localStorage.getItem("currentUser");
 
 if (!user) {
-  alert("Login first 😒");
+  alert("Login first ");
   window.location.href = "login.html";
 }
 
@@ -112,7 +112,7 @@ const totalEl = document.getElementById("total");
 let total = 0;
 
 if (cart.length === 0) {
-  itemsDiv.innerHTML = "<p class='empty'>Your cart is empty 😒</p>";
+  itemsDiv.innerHTML = "<p class='empty'>Your cart is empty </p>";
 } else {
   cart.forEach(item => {
     const div = document.createElement("div");
@@ -133,7 +133,7 @@ totalEl.textContent = "Total: ₹" + total;
 
 function pay() {
   if (cart.length === 0) {
-    alert("Cart is empty 😒");
+    alert("Cart is empty ");
     return;
   }
 
