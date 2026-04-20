@@ -36,7 +36,9 @@ button {
 <div class="box">
   <h2>Create Account</h2>
   <input id="user" placeholder="Username"><br>
+  <p id="loginErr" style="color:red; font-size:14px;"></p>
   <input id="pass" type="password" placeholder="Password"><br>
+  <p id="passError" style="color:red; font-size:14px;"></p>
   <button onclick="signup()">Signup</button>
 </div>
 
@@ -46,10 +48,22 @@ async function signup() {
   const username = document.getElementById("user").value.trim();
   const password = document.getElementById("pass").value.trim();
 
-  if (!username || !password) {
-    alert("Fill all fields 😒");
-    return;
-  }
+const loginErr = document.getElementById("loginErr");
+loginErr.innerText = "";
+
+if (!username || !password) {
+  loginErr.innerText = "Fill all fields";
+  return;
+}
+
+
+const passError = document.getElementById("passError");
+passError.innerText = "";
+
+if (password.length < 4) {
+  passError.innerText = "Password must be at least 4 characters";
+  return;
+}
 
   try {
    
@@ -61,11 +75,6 @@ async function signup() {
       },
       body: JSON.stringify({ username, password })
     });
-
-    // await res.json();
-
-    // alert("Account created 😏");
-    // window.location.href = "login.html";
 
     const data = await res.json();
 

@@ -45,6 +45,7 @@ a {
   <h2>Login</h2>
 
   <input id="user" placeholder="Username">
+  <p id="loginError" style="color:red; font-size:14px;"></p>
   <input id="pass" type="password" placeholder="Password">
 
   <button onclick="login()">Login</button>
@@ -64,10 +65,13 @@ async function login() {
   const username = document.getElementById("user").value.trim();
   const password = document.getElementById("pass").value.trim();
 
-  if (!username || !password) {
-    alert("Fill all fields 😒");
-    return;
-  }
+const loginError = document.getElementById("loginError");
+loginError.innerText = "";
+
+if (!username || !password) {
+  loginError.innerText = "Fill all fields 😒";
+  return;
+}
 
   try {
   
@@ -82,13 +86,12 @@ async function login() {
 
     const data = await res.json();
 
-    if (data.success) {
-      localStorage.setItem("currentUser", username);
-      alert("Login success 😎");
-      window.location.href = "index.html";
-    } else {
-      alert("Invalid login ❌");
-    }
+  if (data.success) {
+  localStorage.setItem("currentUser", username);
+  window.location.href = "index.html";
+} else {
+  loginError.innerText = "Invalid username or password ❌";
+}
 
   } catch (err) {
     console.log(err);

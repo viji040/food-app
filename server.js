@@ -9,6 +9,8 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const Food = require("./models/Food");
+const User = require("./models/User");
+const Cart = require("./models/Cart");
 
 const app = express();
 
@@ -59,7 +61,6 @@ app.delete("/food/:id", async (req, res) => {
   }
 });
 
-// mongoose.connect("mongodb://viji_04:viji2468db@ac-4n5kwsp-shard-00-00.ztryfav.mongodb.net:27017,ac-4n5kwsp-shard-00-01.ztryfav.mongodb.net:27017,ac-4n5kwsp-shard-00-02.ztryfav.mongodb.net:27017/?ssl=true&replicaSet=atlas-51d9nt-shard-0&authSource=admin&appName=Cluster0")
 console.log("ENV VALUE:", process.env.MONGO_URI);
 mongoose.connect(process.env.MONGO_URI)
 
@@ -75,18 +76,7 @@ app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
 
-const User = require("./models/User");
-
 // REGISTER
-// app.post("/register", async (req, res) => {
-//   const { username, password } = req.body;
-
-//   const user = new User({ username, password });
-//   await user.save();
-
-//   res.json("User registered");
-// });
-
 app.post("/register", async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -97,7 +87,7 @@ app.post("/register", async (req, res) => {
     if (existingUser) {
       return res.json({
         success: false,
-        message: "Username already exists 😒"
+        message: "Username already exists"
       });
     }
 
@@ -106,18 +96,17 @@ app.post("/register", async (req, res) => {
 
     res.json({
       success: true,
-      message: "User registered successfully 😎"
+      message: "User registered successfully "
     });
 
   } catch (err) {
     console.log(err);
     res.status(500).json({
       success: false,
-      message: "Server error 😭"
+      message: "Server error "
     });
   }
 });
-
 
 
 app.post("/login", async (req, res) => {
@@ -139,5 +128,131 @@ app.post("/login", async (req, res) => {
 app.get("/users", async (req, res) => {
   const users = await User.find();
   res.json(users);
+});
+
+app.post("/addcart", async (req, res) => {
+  try {
+    const { username, foodName, price, image } = req.body;
+
+    // check if already in cart
+    const existingItem = await Cart.findOne({
+      username,
+      foodName
+    });
+
+    if (existingItem) {
+      existingItem.quantity += 1;
+      await existingItem.save();
+
+      return res.json({
+        success: true,
+        message: "Quantity increased "
+      });
+    }
+
+    const newCartItem = new Cart({
+      username,
+      foodName,
+      price,
+      image,
+      quantity: 1
+    });
+
+    await newCartItem.save();
+
+    res.json({
+      success: true,
+      message: "Added to cart "
+    });
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      success: false,
+      message: "Server error"
+    });
+  }
+});
+
+app.get("/cart/:username", async (req, res) => {
+  try {
+    const username = req.params.username;
+
+    const cartItems = await Cart.find({ username });
+
+    res.json(cartItems);
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      success: false,
+      message: "Error fetching cart "
+    });
+  }
+});
+
+app.delete("/cart/:id", async (req, res) => {
+  try {
+    await Cart.findByIdAndDelete(req.params.id);
+
+    res.json({
+      success: true,
+      message: "Item removed "
+    });
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      success: false,
+      message: "Delete failed "
+    });
+  }
+});
+
+
+app.put("/cart/:id", async (req, res) => {
+  try {
+    const { action } = req.body;
+
+    const item = await Cart.findById(req.params.id);
+
+    if (!item) {
+      return res.status(404).json({
+        success: false,
+        message: "Cart item not found"
+      });
+    }
+
+    if (action === "plus") {
+      item.quantity += 1;
+    }
+
+    if (action === "minus") {
+      if (item.quantity > 1) {
+        item.quantity -= 1;
+      } else {
+        await Cart.findByIdAndDelete(req.params.id);
+
+        return res.json({
+          success: true,
+          message: "Item removed"
+        });
+      }
+    }
+
+    await item.save();
+
+    res.json({
+      success: true,
+      message: "Quantity updated"
+    });
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      success: false,
+      message: "Update failed"
+    });
+  }
 });
 
