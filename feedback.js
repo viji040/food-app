@@ -105,13 +105,18 @@ loadFeedbacks();
 
 
 async function deleteFeedback(id) {
+  console.log("Deleting ID:", id);
+
   try {
-    await fetch(
+    const res = await fetch(
       `https://food-app-7r0i.onrender.com/feedback/${id}`,
       {
         method: "DELETE"
       }
     );
+
+    const data = await res.json();
+    console.log(data);
 
     loadFeedbacks();
 
