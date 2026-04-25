@@ -26,12 +26,12 @@ async function submitFeedback() {
   errorText.innerText = "";
 
   if (!currentUser) {
-    errorText.innerText = "Please login first";
+    errorText.innerText = "Please login ";
     return;
   }
 
   if (!message) {
-    errorText.innerText = "Please write feedback first";
+    errorText.innerText = "Please write feedback ";
     return;
   }
 
@@ -72,7 +72,7 @@ async function loadFeedbacks() {
     feedbackList.innerHTML = "";
 
     if (data.length === 0) {
-      feedbackList.innerHTML = "<p>No feedback yet 😶</p>";
+      feedbackList.innerHTML = "<p>No feedback yet </p>";
       return;
     }
 
@@ -87,6 +87,10 @@ async function loadFeedbacks() {
         </div>
 
         <p class="review-message">${item.message}</p>
+
+        <button onclick="deleteFeedback('${item._id}')">
+    🗑 Delete
+  </button>
       `;
 
       feedbackList.appendChild(div);
@@ -98,3 +102,21 @@ async function loadFeedbacks() {
 }
 setRating(5);
 loadFeedbacks();
+
+
+async function deleteFeedback(id) {
+  try {
+    await fetch(
+      `https://food-app-7r0i.onrender.com/feedback/${id}`,
+      {
+        method: "DELETE"
+      }
+    );
+
+    loadFeedbacks();
+
+  } catch (err) {
+    console.log(err);
+    alert("Delete failed ");
+  }
+}

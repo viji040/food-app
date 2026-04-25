@@ -301,3 +301,20 @@ app.get("/feedbacks", async (req, res) => {
   }
 });
 
+app.delete("/feedback/:id", async (req, res) => {
+  try {
+    await Feedback.findByIdAndDelete(req.params.id);
+
+    res.json({
+      success: true,
+      message: "Feedback deleted"
+    });
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      success: false,
+      message: "Delete failed"
+    });
+  }
+});

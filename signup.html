@@ -79,7 +79,7 @@ if (password.length < 4) {
     const data = await res.json();
 
 if (data.success) {
-  alert("Account created 😏");
+  alert("Account created ");
   window.location.href = "login.html";
 } else {
   alert(data.message);
@@ -87,7 +87,7 @@ if (data.success) {
 
   } catch (err) {
     console.log(err);
-    alert("Server error 😭");
+    alert("Server error ");
   }
 }
 
