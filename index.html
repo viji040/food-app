@@ -26,15 +26,24 @@
 
 <div id="sideMenu" class="side-menu">
 
-  <!-- CLOSE BUTTON -->
   <span class="close-btn" onclick="closeMenu()">✖</span>
 
   <a href="#" onclick="goToCart()">🛒 Cart</a>
-<a href="login.html">🔐 Login</a>
-<a href="#" onclick="goToCart()">💳 Order</a>
-<a href="#" onclick="logout()">🚪 Logout</a>
+
+  <a href="#" onclick="goToCart()">💳 Order</a>
+
+  <a href="about.html"> About Us</a>
+
+  <a href="contact.html">📞 Contact Us</a>
+
+  <a href="feedback.html">⭐ Feedback</a>
+
+  <a href="login.html">🔐 Login</a>
+
+  <a href="#" onclick="logout()">🚪 Logout</a>
 
 </div>
+
 
 <!-- OVERLAY (for background click) -->
 <div id="overlay" onclick="closeMenu()"></div>
@@ -48,26 +57,67 @@
   </header>
 
   <!-- HERO SECTION -->
+  <div class="hero-row">
+
   <div class="hero">
     <h2>🍽️ Delicious Food Menu</h2>
     <p>• Fresh • Tasty • Affordable</p>
   </div>
+
+  <div class="quote-box">
+    <h3>✨ Eat & Feel</h3>
+    <p>"Good food = Good mood 😋"</p>
+  </div>
+
+</div>
 
   <!-- MAIN CONTAINER -->
   <div class="container">
 
     <!-- LEFT SIDE (FOOD LIST) -->
     <div id="food-list"></div>
-
-    <!-- RIGHT SIDE -->
-    <div class="right-side">
-      <h3>✨ Eat & Feel</h3>
-      <p>"Good food = Good mood 😋"</p>
-    </div>
+    
 
   </div>
 
-  <div id="toast">✔ Added to cart</div>
+ <div id="toast" onclick="goToCart()">
+  ✔ Added to cart — View Cart🛒
+</div>
+
+
+
+<!-- ABOUT + CONTACT + FEEDBACK PREVIEW -->
+<section class="info-section">
+
+  <div class="info-box clickable" onclick="window.location.href='about.html'">
+    <h2> About Us</h2>
+    <h3>Good food gives good feel 😋</h3>
+    <p>
+      Welcome to Food Corner 🍔 — Fresh, tasty and affordable meals
+      made with love. Click to know more about us.
+    </p>
+  </div>
+
+  <div class="info-box clickable" onclick="window.location.href='contact.html'">
+    <h2>📞 Contact Us</h2>
+    <h3>We’re always here for you ❤️</h3>
+    <p>
+      Need help or support?  
+      Click here to contact our team.
+    </p>
+  </div>
+
+  <div class="info-box clickable" onclick="window.location.href='feedback.html'">
+    <h2>⭐ Feedback</h2>
+    <h3>Your review matters ✨</h3>
+    <p>
+      Share your feedback and reviews with us.  
+      Click here to write yours.
+    </p>
+  </div>
+
+</section>
+
   <script src="script.js"></script>
 </body>
 </html>

@@ -88,7 +88,7 @@ async function addToCart(name, price, image) {
   const currentUser = localStorage.getItem("currentUser");
 
   if (!currentUser) {
-    alert("Login first 😒");
+    alert("Login first ");
     window.location.href = "login.html";
     return;
   }
@@ -116,12 +116,12 @@ async function addToCart(name, price, image) {
       console.log(data.message);
     } catch {
       console.log("Not JSON response:", text);
-      alert("Backend problem 😭");
+      alert("Backend problem ");
     }
 
   } catch (err) {
     console.log(err);
-    alert("Server error 😭");
+    alert("Server error ");
   }
 }
 
@@ -157,7 +157,7 @@ function showAll() {
 
 function logout() {
   if (!currentUser) {
-    alert("You are not logged in 😒");
+    alert("You are not logged in ");
     return;
   }
 
@@ -171,7 +171,7 @@ function goToCart() {
 const user = localStorage.getItem("currentUser");  
 
   if (!user) {
-    alert("Please login first 😒");
+    alert("Please login first ");
     window.location.href = "login.html";
     return;
   }

@@ -11,6 +11,7 @@ const mongoose = require('mongoose');
 const Food = require("./models/Food");
 const User = require("./models/User");
 const Cart = require("./models/Cart");
+const Feedback = require("./models/Feedback");
 
 const app = express();
 
@@ -252,6 +253,50 @@ app.put("/cart/:id", async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Update failed"
+    });
+  }
+});
+
+// ADD FEEDBACK
+app.post("/addfeedback", async (req, res) => {
+  try {
+    const { username, message, rating } = req.body;
+
+    const newFeedback = new Feedback({
+      username,
+      message,
+      rating
+    });
+
+    await newFeedback.save();
+
+    res.json({
+      success: true,
+      message: "Feedback added successfully"
+    });
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      success: false,
+      message: "Feedback failed"
+    });
+  }
+});
+
+
+// GET ALL FEEDBACKS
+app.get("/feedbacks", async (req, res) => {
+  try {
+    const feedbacks = await Feedback.find().sort({ createdAt: -1 });
+
+    res.json(feedbacks);
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      success: false,
+      message: "Error fetching feedbacks"
     });
   }
 });
